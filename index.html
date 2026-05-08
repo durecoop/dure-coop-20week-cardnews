@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>두레생협 · 감사의 마음으로 준비한 두 가지 선물</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nanum+Pen+Script&family=Gowun+Batang:wght@400;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --moss:#2a4a3a; --moss-d:#142a1f;
+  --sage:#7e9670; --sage-l:#d4dec5;
+  --paper:#faf5ea; --paper-d:#f0e9d4;
+  --cream:#fff9ec; --linen:#f7f0dc;
+  --clay:#b86344; --clay-d:#923f24;
+  --gold:#c9a55c; --gold-d:#a68232; --gold-l:#e8c787;
+  --rose:#a9626b; --plum:#7d4848;
+  --ink:#231f1c;
+}
+html,body{
+  font-family:'Noto Sans KR',sans-serif;color:var(--ink);
+  background:#0f2118;height:100%;overflow:hidden;
+  -webkit-font-smoothing:antialiased;letter-spacing:-.3px
+}
+.serif{font-family:'Gowun Batang',serif;font-weight:700}
+
+/* ===== Stage / Vertical Slider ===== */
+.stage{position:fixed;inset:0;background:#0f2118;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.frame{
+  position:relative;width:100%;height:100%;max-width:480px;max-height:100vh;
+  background:#000;overflow:hidden;box-shadow:0 0 80px rgba(0,0,0,.5)
+}
+@media(min-width:600px){
+  .frame{max-width:430px;max-height:880px;border-radius:32px;
+    box-shadow:0 30px 90px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.05)}
+}
+.track{
+  display:flex;flex-direction:column;height:100%;
+  transition:transform .7s cubic-bezier(.65,0,.35,1);will-change:transform
+}
+.slide{flex:0 0 100%;height:100%;position:relative;overflow:hidden;display:flex;flex-direction:column}
+
+/* ===== UI ===== */
+.bar{position:absolute;top:0;bottom:0;right:0;width:3px;z-index:30;background:rgba(255,255,255,.12)}
+.bar .fill{width:100%;background:var(--gold);transition:height .65s cubic-bezier(.65,0,.35,1);box-shadow:0 0 8px rgba(201,165,92,.6)}
+.bar.dark{background:rgba(0,0,0,.08)}
+.idx{
+  position:absolute;top:18px;left:50%;transform:translateX(-50%);
+  background:rgba(255,255,255,.18);color:#fff;font-size:12px;font-weight:700;
+  padding:6px 14px;border-radius:100px;backdrop-filter:blur(10px);z-index:30;
+  letter-spacing:1.5px;font-family:'Gowun Batang',serif
+}
+.idx.dark{background:rgba(0,0,0,.12);color:var(--moss-d)}
+
+.scroll-hint{
+  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  font-size:12px;color:rgba(255,255,255,.55);letter-spacing:2px;z-index:25;
+  pointer-events:none;animation:bob 1.6s ease-in-out infinite;font-weight:600;text-align:center
+}
+.scroll-hint.dark{color:rgba(0,0,0,.45)}
+@keyframes bob{0%,100%{transform:translate(-50%,0);opacity:.4}50%{transform:translate(-50%,8px);opacity:1}}
+.scroll-hint .arrow{display:block;font-size:18px;line-height:1;margin-bottom:2px}
+
+/* nav side buttons */
+.nav-side{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:10px;z-index:30
+}
+.nav-side button{
+  width:48px;height:48px;border-radius:50%;border:none;
+  background:rgba(255,255,255,.92);color:var(--moss-d);
+  font-family:'Gowun Batang',serif;font-size:22px;font-weight:700;cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.3);transition:transform .15s
+}
+.nav-side button:active{transform:scale(.92)}
+.nav-side button:disabled{opacity:.3;cursor:default}
+
+/* ===== Backgrounds ===== */
+.cover-bg{
+  background:
+    radial-gradient(ellipse at 70% 0%,rgba(201,165,92,.3),transparent 55%),
+    radial-gradient(ellipse at 0% 100%,rgba(126,150,112,.25),transparent 60%),
+    linear-gradient(170deg,#3a5d4a 0%,#142a1f 100%);
+  color:#fff
+}
+.paper-bg{background:linear-gradient(170deg,#fff9ec,#f0e9d4);color:var(--ink)}
+.linen-bg{background:linear-gradient(170deg,#fff9ec,#faf5ea);color:var(--ink)}
+.moss-bg{background:linear-gradient(170deg,#3a5d4a,#142a1f);color:#fff}
+.clay-bg{background:
+  radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.18),transparent 50%),
+  linear-gradient(170deg,#d99e84 0%,#a85535 100%);color:#fff}
+.gold-bg{background:
+  radial-gradient(ellipse at 70% 30%,rgba(255,255,255,.3),transparent 50%),
+  linear-gradient(170deg,#e8c787 0%,#c9a55c 100%);color:var(--moss-d)}
+.sage-bg{background:linear-gradient(170deg,#a8c096,#7e9670);color:#fff}
+.plum-bg{background:linear-gradient(170deg,#a87474 0%,#6f4040 100%);color:#fff}
+.warm-bg{background:
+  radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.18),transparent 50%),
+  linear-gradient(170deg,#b8754a 0%,#7a3e1f 100%);color:#fff}
+.warm-bg .label,.warm-bg h2,.warm-bg .desc,.warm-bg .smallnote{text-shadow:0 2px 8px rgba(0,0,0,.3)}
+.warm-bg h2 em{color:#ffe5b8}
+.warm-bg .desc{color:#fff5e6}
+.warm-bg .desc b{color:#ffe5b8;font-weight:800}
+
+/* sparkle decoration */
+.sparkles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.sparkle{position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.7);box-shadow:0 0 10px rgba(255,255,255,.8)}
+
+/* ===== ANIMATIONS (trigger on .slide.active) ===== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.78)}to{opacity:1;transform:scale(1)}}
+@keyframes pop{0%{opacity:0;transform:scale(.4)}65%{transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+@keyframes slideInL{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInR{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 8px 24px rgba(201,165,92,.4),0 0 0 0 rgba(201,165,92,.4)}50%{box-shadow:0 8px 24px rgba(201,165,92,.6),0 0 0 12px rgba(201,165,92,0)}}
+@keyframes stampDrop{0%{opacity:0;transform:translateX(-50%) translateY(-40%) rotate(20deg) scale(1.5)}80%{transform:translateX(-50%) translateY(50%) rotate(-7deg) scale(1.05)}100%{opacity:1;transform:translateX(-50%) translateY(50%) rotate(-7deg) scale(1)}}
+@keyframes ribbonWave{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes twinkle{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+
+.slide.active .a-fadeup{animation:fadeUp .9s both}
+.slide.active .a-fadedown{animation:fadeDown .9s both}
+.slide.active .a-scale{animation:scaleIn 1s both}
+.slide.active .a-pop{animation:pop .8s both}
+.slide.active .a-slideL{animation:slideInL .9s both}
+.slide.active .a-slideR{animation:slideInR .9s both}
+.slide.active .a-stamp{animation:stampDrop 1.2s both}
+.slide.active .a-d1{animation-delay:.15s}
+.slide.active .a-d2{animation-delay:.3s}
+.slide.active .a-d3{animation-delay:.45s}
+.slide.active .a-d4{animation-delay:.6s}
+.slide.active .a-d5{animation-delay:.75s}
+.slide.active .a-d6{animation-delay:.9s}
+.slide.active .a-d7{animation-delay:1.05s}
+.slide.active .a-float{animation:float 3.5s ease-in-out infinite}
+.slide.active .a-spin{animation:spin 60s linear infinite}
+.slide.active .a-glow{animation:glowPulse 2.4s ease-in-out infinite}
+.slide.active .a-twinkle{animation:twinkle 2s ease-in-out infinite}
+.slide.active .a-ribbon{animation:ribbonWave 4s ease-in-out infinite}
+
+/* sparkles only on gift slides */
+.slide.active .sparkle{animation:twinkle 2.4s ease-in-out infinite}
+.slide.active .sparkle.s1{animation-delay:0s}
+.slide.active .sparkle.s2{animation-delay:.5s}
+.slide.active .sparkle.s3{animation-delay:1s}
+.slide.active .sparkle.s4{animation-delay:1.5s}
+.slide.active .sparkle.s5{animation-delay:.8s}
+
+/* ===== Buttons (각 페이지별) ===== */
+.btn-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:16px 30px;border-radius:100px;font-family:'Gowun Batang',serif;
+  font-size:16px;font-weight:700;text-decoration:none;letter-spacing:-.3px;
+  box-shadow:0 8px 22px rgba(0,0,0,.25);transition:transform .18s;
+  cursor:pointer;border:none;white-space:nowrap;position:relative;overflow:hidden;z-index:5
+}
+.btn-cta:active{transform:scale(.96)}
+.btn-cta::after{
+  content:"";position:absolute;top:0;left:-30%;width:30%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);
+  pointer-events:none
+}
+.slide.active .btn-cta::after{animation:shimmer 2.5s 1.5s infinite}
+.btn-cream{background:#fff9ec;color:var(--moss-d)}
+.btn-gold{background:var(--gold);color:var(--moss-d)}
+.btn-clay{background:var(--clay-d);color:#fff}
+.btn-moss{background:var(--moss-d);color:var(--gold)}
+.btn-plum{background:var(--plum);color:#fff}
+.btn-sage{background:var(--sage);color:#fff}
+.btn-arrow{font-size:18px;font-weight:700}
+
+/* ===== 1. HOOK ===== */
+.s-hook{padding:0;text-align:left;position:relative}
+.s-hook .top{padding:80px 38px 0;flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+.s-hook .seal{
+  width:64px;height:64px;border-radius:50%;border:1.5px solid rgba(201,165,92,.6);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Gowun Batang',serif;font-size:24px;color:var(--gold);
+  margin-bottom:22px;letter-spacing:-1px;font-weight:700
+}
+.s-hook .pre{
+  font-family:'Nanum Pen Script',cursive;font-size:30px;color:var(--gold);line-height:1;margin-bottom:14px
+}
+.s-hook h1{
+  font-family:'Gowun Batang',serif;font-size:46px;font-weight:700;line-height:1.35;
+  letter-spacing:-2px;color:#fff
+}
+.s-hook h1 .line{display:block}
+.s-hook h1 em{
+  font-style:normal;color:var(--gold);display:inline-block;position:relative
+}
+.s-hook h1 em::after{
+  content:"";position:absolute;left:0;right:0;bottom:2px;height:8px;
+  background:rgba(201,165,92,.22);z-index:-1
+}
+.s-hook .lead{margin-top:28px;font-size:17px;line-height:2;color:#dbd0b6}
+.s-hook .bot{padding:0 38px 100px;display:flex;justify-content:space-between;align-items:flex-end;position:relative;z-index:2}
+.s-hook .signoff{font-family:'Nanum Pen Script',cursive;font-size:30px;color:var(--gold);line-height:1.2}
+.s-hook .brand{font-size:11px;color:#a8a08c;letter-spacing:3px;font-weight:600;text-align:right}
+
+/* ===== Gift cards ===== */
+.s-gift{padding:0;text-align:center;position:relative}
+.s-gift .top{padding:54px 32px 0;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;position:relative;z-index:2}
+.s-gift .label{
+  display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.22);color:#fff;
+  font-family:'Gowun Batang',serif;font-size:13px;font-weight:700;padding:8px 22px;border-radius:100px;
+  letter-spacing:2px;margin-bottom:18px;border:1px solid rgba(255,255,255,.35);
+  backdrop-filter:blur(6px)
+}
+.s-gift .label.dark{background:rgba(255,255,255,.7);color:var(--moss-d);border-color:rgba(255,255,255,.9)}
+.s-gift .label .num{
+  width:22px;height:22px;border-radius:50%;background:#fff;color:var(--clay-d);
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900
+}
+.s-gift .label.dark .num{background:var(--clay-d);color:#fff}
+.s-gift h2{
+  font-family:'Gowun Batang',serif;font-size:42px;font-weight:700;line-height:1.2;
+  letter-spacing:-2px;margin-bottom:18px
+}
+.s-gift h2 em{font-style:normal;color:var(--gold);text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:8px}
+.s-gift .gift-img{
+  width:230px;height:230px;border-radius:50%;overflow:hidden;
+  background:#fff;margin:6px auto 18px;
+  box-shadow:0 18px 40px rgba(0,0,0,.28),0 0 0 6px rgba(255,255,255,.45),0 0 0 12px rgba(255,255,255,.18);
+  position:relative
+}
+.s-gift .gift-img img{width:100%;height:100%;object-fit:cover}
+.s-gift .gift-stamp{
+  position:absolute;bottom:-2px;left:50%;transform:translateX(-50%) translateY(50%) rotate(-7deg);
+  background:var(--clay-d);color:#fff;font-size:13px;font-weight:900;
+  padding:7px 18px;border-radius:6px;letter-spacing:1.5px;
+  font-family:'Gowun Batang',serif;box-shadow:0 6px 16px rgba(0,0,0,.3);white-space:nowrap;border:2px solid #fff
+}
+.s-gift .desc{font-size:17px;line-height:1.95;font-weight:500;max-width:320px;margin:6px auto 0;opacity:.96}
+.s-gift .desc b{font-weight:700}
+.s-gift .bot{padding:14px 32px 84px;text-align:center;position:relative;z-index:5}
+
+/* ===== 1+1 BIG ===== */
+.s-1plus1{padding:0;text-align:center;justify-content:center;align-items:center;display:flex;flex-direction:column;position:relative}
+.s-1plus1 .label{
+  display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.85);color:var(--moss-d);
+  font-family:'Gowun Batang',serif;font-size:13px;font-weight:700;padding:8px 22px;border-radius:100px;
+  letter-spacing:2px;margin-bottom:18px
+}
+.s-1plus1 .label .num{
+  width:22px;height:22px;border-radius:50%;background:var(--moss-d);color:var(--gold);
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900
+}
+.s-1plus1 .img-row{display:flex;align-items:center;gap:14px;margin:8px 0 18px}
+.s-1plus1 .img-row .pic{
+  width:130px;height:130px;border-radius:50%;overflow:hidden;background:#fff;
+  box-shadow:0 12px 28px rgba(0,0,0,.25),0 0 0 5px rgba(255,255,255,.5)
+}
+.s-1plus1 .img-row .pic img{width:100%;height:100%;object-fit:cover}
+.s-1plus1 .img-row .plus{font-family:'Gowun Batang',serif;font-size:60px;font-weight:700;color:var(--moss-d);line-height:1}
+.s-1plus1 h2{
+  font-family:'Gowun Batang',serif;font-size:38px;font-weight:700;line-height:1.25;
+  letter-spacing:-1.5px;color:var(--moss-d)
+}
+.s-1plus1 .big-1plus1{
+  font-family:'Gowun Batang',serif;font-size:74px;font-weight:700;line-height:1;
+  color:var(--moss-d);margin-top:6px;letter-spacing:-3px
+}
+.s-1plus1 .desc{margin-top:14px;font-size:16px;line-height:1.85;color:var(--moss-d);max-width:320px;padding:0 20px;font-weight:500}
+.s-1plus1 .desc b{font-weight:700}
+.s-1plus1 .bot{padding:18px 32px 84px;text-align:center;z-index:5;position:relative}
+
+/* ===== 풋마늘대김치 설명 ===== */
+.s-explain{padding:0;display:flex;flex-direction:column}
+.s-explain .ph{
+  width:100%;height:38%;background:#f5f0e0;position:relative;overflow:hidden;flex-shrink:0
+}
+.s-explain .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.s-explain .ph::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:80px;
+  background:linear-gradient(180deg,transparent,var(--paper))
+}
+.s-explain .info{
+  flex:1;padding:8px 32px 90px;background:var(--paper);color:var(--ink);
+  display:flex;flex-direction:column
+}
+.s-explain .pre{
+  font-family:'Nanum Pen Script',cursive;font-size:24px;color:var(--clay-d);line-height:1;margin-bottom:6px
+}
+.s-explain h2{
+  font-family:'Gowun Batang',serif;font-size:32px;font-weight:700;line-height:1.3;
+  letter-spacing:-1.5px;color:var(--moss-d);margin-bottom:14px
+}
+.s-explain h2 em{font-style:normal;color:var(--clay-d)}
+.s-explain .quote{
+  font-family:'Gowun Batang',serif;font-size:17px;font-weight:400;color:var(--moss);
+  line-height:1.85;border-left:3px solid var(--gold);padding:6px 0 6px 14px;
+  margin-bottom:14px;font-style:italic
+}
+.s-explain .meta{display:flex;flex-direction:column;gap:8px;font-size:14px}
+.s-explain .meta .row{display:flex;gap:10px;align-items:flex-start}
+.s-explain .meta .row .k{font-family:'Gowun Batang',serif;font-weight:700;color:var(--clay-d);min-width:54px;flex-shrink:0}
+.s-explain .meta .row .v{color:#444;line-height:1.6;font-weight:500}
+.s-explain .btn-row{margin-top:14px;text-align:center}
+
+/* ===== Hero product ===== */
+.s-prod{padding:0;display:flex;flex-direction:column}
+.s-prod .ph{flex:1;background:#f5f0e0;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:0}
+.s-prod .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.s-prod .pct{
+  position:absolute;top:24px;left:24px;background:var(--clay-d);color:#fff;
+  font-size:24px;font-weight:900;padding:10px 20px;border-radius:10px;
+  font-family:'Gowun Batang',serif;letter-spacing:-1px;
+  box-shadow:0 8px 24px rgba(146,63,36,.4)
+}
+.s-prod .pct.gold{background:var(--gold-d);box-shadow:0 8px 24px rgba(166,130,50,.4)}
+.s-prod .pct.limited{background:var(--moss);font-size:18px;letter-spacing:1px;box-shadow:0 8px 24px rgba(42,74,58,.4)}
+.s-prod .info{
+  background:var(--paper);padding:24px 32px 90px;color:var(--ink);flex-shrink:0
+}
+.s-prod .pre{
+  font-family:'Nanum Pen Script',cursive;font-size:22px;line-height:1;
+  margin-bottom:6px;color:var(--clay-d)
+}
+.s-prod h2{
+  font-family:'Gowun Batang',serif;font-size:32px;font-weight:700;line-height:1.25;
+  letter-spacing:-1.5px;color:var(--moss-d)
+}
+.s-prod h2 em{font-style:normal;color:var(--clay-d)}
+.s-prod .price-row{display:flex;align-items:baseline;gap:10px;margin-top:12px;font-family:'Gowun Batang',serif}
+.s-prod .price{font-size:28px;font-weight:700;color:var(--moss-d)}
+.s-prod .unit{font-size:15px;color:#777;font-weight:400}
+.s-prod .btn-row{margin-top:14px;text-align:center}
+
+/* ===== 화·목·금 ===== */
+.s-cal{padding:0;background:linear-gradient(180deg,#1a3528 0%,#0f2118 100%);color:#fff}
+.s-cal .top{padding:60px 32px 4px;text-align:center}
+.s-cal .pre{font-family:'Nanum Pen Script',cursive;font-size:22px;color:var(--gold);line-height:1;margin-bottom:6px}
+.s-cal h2{font-family:'Gowun Batang',serif;font-size:36px;font-weight:700;line-height:1.25;letter-spacing:-1.5px}
+.s-cal h2 em{font-style:normal;color:var(--gold)}
+.s-cal .sub{margin-top:12px;font-size:14px;color:#d8d0bc;line-height:1.7}
+.s-cal .grid{flex:1;padding:14px 24px 14px;display:flex;flex-direction:column;gap:12px;justify-content:center}
+.s-cal .row{
+  display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.07);
+  border-radius:18px;padding:12px;border:1px solid rgba(201,165,92,.22);
+  box-shadow:0 4px 14px rgba(0,0,0,.18)
+}
+.s-cal .day{
+  width:50px;height:50px;border-radius:12px;background:var(--gold);
+  color:var(--moss-d);font-family:'Gowun Batang',serif;font-size:22px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:-1px
+}
+.s-cal .pic{width:104px;height:104px;border-radius:14px;overflow:hidden;flex-shrink:0;background:#444;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.s-cal .pic img{width:100%;height:100%;object-fit:cover}
+.s-cal .txt{flex:1;min-width:0}
+.s-cal .txt .nm{font-size:17px;font-weight:700;color:#fff;line-height:1.35;font-family:'Gowun Batang',serif}
+.s-cal .txt .ds{font-size:15px;color:var(--gold);font-weight:700;margin-top:5px;font-family:'Gowun Batang',serif;letter-spacing:1px}
+.s-cal .btn-row{padding:6px 0 90px;text-align:center}
+
+/* ===== Multi-product grid ===== */
+.s-mprod{padding:0;display:flex;flex-direction:column;background:var(--paper);color:var(--ink)}
+.s-mprod.dark-grid{background:linear-gradient(180deg,#1a3528,#0f2118);color:#fff}
+.s-mprod.plum-grid{background:linear-gradient(170deg,#a87474 0%,#6f4040 100%);color:#fff}
+.s-mprod .top{padding:60px 32px 4px;text-align:center}
+.s-mprod .pre{font-family:'Nanum Pen Script',cursive;font-size:22px;color:var(--clay-d);line-height:1;margin-bottom:4px}
+.s-mprod.dark-grid .pre,.s-mprod.plum-grid .pre{color:var(--gold)}
+.s-mprod h2{font-family:'Gowun Batang',serif;font-size:32px;font-weight:700;line-height:1.25;color:var(--moss-d);letter-spacing:-1.5px}
+.s-mprod.dark-grid h2,.s-mprod.plum-grid h2{color:#fff}
+.s-mprod h2 em{font-style:normal;color:var(--clay-d)}
+.s-mprod.dark-grid h2 em,.s-mprod.plum-grid h2 em{color:var(--gold)}
+.s-mprod .sub{margin-top:8px;font-size:13px;color:#666;line-height:1.65}
+.s-mprod.dark-grid .sub,.s-mprod.plum-grid .sub{color:#d8d0bc}
+.s-mprod .grid3{flex:1;padding:12px 20px 8px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.s-mprod .grid3.g6{grid-template-rows:1fr 1fr}
+.s-mprod .grid3.g4{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;padding:12px 22px 8px}
+.s-mprod .pcard{background:#fff;border-radius:14px;overflow:hidden;border:1px solid #ece4cd;display:flex;flex-direction:column;box-shadow:0 4px 14px rgba(0,0,0,.1);position:relative;min-height:0}
+.s-mprod .pcard .img{flex:1;min-height:0;background:#f5f0e0;position:relative;overflow:hidden}
+.s-mprod .pcard .img img{width:100%;height:100%;object-fit:cover;display:block}
+.s-mprod .pcard .pct{position:absolute;top:6px;left:6px;background:var(--clay-d);color:#fff;font-size:13px;font-weight:900;padding:3px 8px;border-radius:5px;font-family:'Gowun Batang',serif;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.s-mprod .pcard .pct.gold{background:var(--gold-d)}
+.s-mprod .pcard .nm{padding:8px 10px 4px;font-size:11.5px;font-weight:600;color:#222;line-height:1.35;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;flex-shrink:0;min-height:2.7em}
+.s-mprod .pcard .pr{padding:0 10px 10px;font-family:'Gowun Batang',serif;font-size:13px;font-weight:700;color:var(--moss-d);flex-shrink:0}
+.s-mprod .btn-row{padding:12px 0 90px;text-align:center;flex-shrink:0}
+
+/* g4 enlarged cards */
+.s-mprod .grid3.g4 .pcard .nm{font-size:13px;min-height:auto}
+.s-mprod .grid3.g4 .pcard .pr{font-size:15px}
+.s-mprod .grid3.g4 .pcard .pct{font-size:15px;padding:5px 10px}
+
+/* ===== Story / emo ===== */
+.s-emo{padding:0;text-align:center}
+.s-emo .body{padding:78px 36px 0;flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.s-emo .pre{font-family:'Nanum Pen Script',cursive;font-size:24px;line-height:1;margin-bottom:18px;opacity:.85}
+.s-emo h2{font-family:'Gowun Batang',serif;font-size:44px;font-weight:700;line-height:1.25;letter-spacing:-2px}
+.s-emo h2 em{font-style:normal;color:var(--gold)}
+.s-emo .sub{margin-top:26px;font-size:17px;line-height:2;font-weight:400;max-width:300px;opacity:.92}
+.s-emo .bot{padding:24px 0 84px;text-align:center}
+
+/* ===== CTA ===== */
+.s-cta{padding:0;text-align:center;color:#fff;background:linear-gradient(170deg,#3a5d4a,#0f2118);position:relative;overflow:hidden}
+.s-cta::before{
+  content:"";position:absolute;inset:-30%;
+  background:radial-gradient(circle,rgba(201,165,92,.18) 0,transparent 50%);
+}
+.s-cta.active::before{animation:spin 50s linear infinite}
+.s-cta .top{padding:64px 38px 0;flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;z-index:2}
+.s-cta .pre{font-family:'Nanum Pen Script',cursive;font-size:28px;color:var(--gold);line-height:1;margin-bottom:14px}
+.s-cta h2{font-family:'Gowun Batang',serif;font-size:46px;font-weight:700;line-height:1.2;letter-spacing:-2px}
+.s-cta h2 em{font-style:normal;color:var(--gold)}
+.s-cta .when-box{margin-top:22px;border:1px solid rgba(201,165,92,.4);padding:14px 26px;border-radius:14px;background:rgba(0,0,0,.18);backdrop-filter:blur(6px)}
+.s-cta .when-box .lab{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:3px}
+.s-cta .when-box .big{font-size:22px;font-weight:700;font-family:'Gowun Batang',serif;margin-top:4px}
+.s-cta .gifts-recap{margin-top:22px;display:flex;gap:14px;justify-content:center}
+.s-cta .gifts-recap .g{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:#d8d0bc}
+.s-cta .gifts-recap .g .pic{width:60px;height:60px;border-radius:50%;overflow:hidden;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.3),0 0 0 3px rgba(201,165,92,.4)}
+.s-cta .gifts-recap .g .pic img{width:100%;height:100%;object-fit:cover}
+.s-cta .gifts-recap .g .lab{font-family:'Gowun Batang',serif;font-weight:700;color:var(--gold);font-size:13px}
+.s-cta .bot{padding:18px 32px 100px;position:relative;z-index:2}
+.s-cta .btn-big{
+  display:block;background:var(--gold);color:var(--moss-d);font-family:'Gowun Batang',serif;
+  font-size:20px;font-weight:700;padding:22px;border-radius:18px;text-decoration:none;
+  box-shadow:0 10px 30px rgba(201,165,92,.4);letter-spacing:-.5px;position:relative;overflow:hidden
+}
+.s-cta .btn-big::after{content:"";position:absolute;top:0;left:-30%;width:30%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent)}
+.slide.active .s-cta .btn-big::after{animation:shimmer 2.5s 1s infinite}
+.s-cta .btn-big small{display:block;font-size:11px;font-weight:600;letter-spacing:2px;margin-top:4px;opacity:.65;font-family:'Noto Sans KR'}
+.s-cta .foot{margin-top:14px;font-size:11px;color:rgba(255,255,255,.45);letter-spacing:2px}
+
+@media(max-height:780px){
+  .s-hook h1{font-size:40px}
+  .s-emo h2{font-size:38px}
+  .s-gift h2{font-size:34px}
+  .s-1plus1 h2{font-size:30px}
+  .s-1plus1 .big-1plus1{font-size:58px}
+  .s-prod h2,.s-mprod h2{font-size:28px}
+  .s-cta h2{font-size:38px}
+  .s-cal h2{font-size:30px}
+  .s-explain h2{font-size:28px}
+  .s-gift .gift-img{width:200px;height:200px}
+  .s-1plus1 .img-row .pic{width:110px;height:110px}
+  .s-hook .top,.s-emo .body,.s-cta .top{padding-top:54px}
+}
+@media(max-height:680px){
+  .s-hook h1{font-size:34px}
+  .s-emo h2{font-size:32px}
+  .s-gift h2,.s-1plus1 h2,.s-cta h2{font-size:28px}
+  .s-1plus1 .big-1plus1{font-size:48px}
+  .s-prod h2{font-size:24px}
+  .s-gift .gift-img{width:170px;height:170px}
+  .btn-cta{padding:12px 22px;font-size:14px}
+}
+</style>
+</head>
+<body>
+
+<div class="stage">
+<div class="frame">
+
+<div class="bar" id="bar"><div class="fill" id="barFill" style="height:7.7%"></div></div>
+<div class="idx" id="idx">01 / 13</div>
+
+<div class="track" id="track">
+
+<!-- ============ 01. HOOK — 감사의 마음 ============ -->
+<div class="slide cover-bg s-hook">
+  <div class="sparkles">
+    <span class="sparkle s1" style="top:14%;left:18%;width:5px;height:5px"></span>
+    <span class="sparkle s2" style="top:24%;right:14%;width:7px;height:7px"></span>
+    <span class="sparkle s3" style="top:48%;left:8%;width:4px;height:4px"></span>
+    <span class="sparkle s4" style="bottom:30%;right:22%;width:6px;height:6px"></span>
+    <span class="sparkle s5" style="bottom:18%;left:24%;width:5px;height:5px"></span>
+  </div>
+  <div class="top">
+    <div class="seal a-pop">두</div>
+    <div class="pre a-fadeup a-d1">조합원님 덕분에</div>
+    <h1 class="a-fadeup a-d2">
+      <span class="line">감사의 마음으로</span>
+      <span class="line">준비한</span>
+      <span class="line"><em>두 가지 선물</em></span>
+    </h1>
+    <p class="lead a-fadeup a-d4">5월의 한 주,<br>두레가 정성껏 차린 식탁이<br>조합원님을 기다립니다.</p>
+  </div>
+  <div class="bot a-fadeup a-d6">
+    <div class="signoff">두레생협 드림</div>
+    <div class="brand">DURE COOP<br>5.11 — 5.15</div>
+  </div>
+</div>
+
+<!-- ============ 02. 선물 ① 햇양파 ============ -->
+<div class="slide warm-bg s-gift">
+  <div class="sparkles">
+    <span class="sparkle s1" style="top:18%;left:10%"></span>
+    <span class="sparkle s2" style="top:32%;right:12%"></span>
+    <span class="sparkle s3" style="bottom:38%;left:18%"></span>
+    <span class="sparkle s4" style="bottom:30%;right:18%"></span>
+  </div>
+  <div class="top">
+    <span class="label a-fadedown"><span class="num">1</span>감사 선물 · 7만원 이상 구매시</span>
+    <h2 class="a-fadeup a-d1"><em>제주 햇양파</em><br>한 망 드립니다</h2>
+    <div class="gift-img a-scale a-d2">
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54511C.jpg" alt="제주 햇양파" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54511.jpg'">
+      <span class="gift-stamp a-stamp a-d4">사은품 · GIFT</span>
+    </div>
+    <p class="desc a-fadeup a-d5">제주 농가에서 갓 캐낸<br><b>단단한 햇양파 800g</b>을<br>감사의 마음으로 함께 보내드려요.</p>
+  </div>
+  <div class="bot a-fadeup a-d6">
+    <a class="btn-cta btn-cream" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662" target="_blank">
+      햇양파 받으러 가기 <span class="btn-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- ============ 03. 선물 ② 풋마늘대김치 1+1 ============ -->
+<div class="slide gold-bg s-1plus1">
+  <div class="sparkles">
+    <span class="sparkle s1" style="top:14%;left:14%;background:rgba(255,255,255,.9)"></span>
+    <span class="sparkle s2" style="top:28%;right:12%;background:rgba(255,255,255,.9)"></span>
+    <span class="sparkle s3" style="bottom:34%;left:20%;background:rgba(255,255,255,.9)"></span>
+    <span class="sparkle s4" style="bottom:24%;right:18%;background:rgba(255,255,255,.9)"></span>
+  </div>
+  <span class="label a-fadedown"><span class="num">2</span>감사 선물 · 풋마늘대김치 주문시</span>
+  <div class="img-row a-scale a-d1">
+    <div class="pic"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59420C.jpg" alt="풋마늘대김치" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59420.jpg'"></div>
+    <span class="plus a-pop a-d3">+</span>
+    <div class="pic"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59420C.jpg" alt="풋마늘대김치 한 통 더" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59420.jpg'"></div>
+  </div>
+  <h2 class="a-fadeup a-d2">한 통 사면<br>한 통 더!</h2>
+  <div class="big-1plus1 a-pop a-d4">1 + 1</div>
+  <p class="desc a-fadeup a-d5">봄에만 맛볼 수 있는 <b>풋마늘대김치</b>,<br>이번 주만 한 통 더 챙겨드려요.</p>
+  <div class="bot a-fadeup a-d6">
+    <a class="btn-cta btn-moss" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=59420&returnPlanNo=0" target="_blank">
+      한 통 더 받으러 가기 <span class="btn-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- ============ 04. 풋마늘대김치 알아보기 ============ -->
+<div class="slide s-explain">
+  <div class="ph">
+    <img class="a-scale" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59420C.jpg" alt="풋마늘대김치" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59420.jpg'">
+  </div>
+  <div class="info">
+    <div class="pre a-fadeup a-d1">봄에만 잠깐, 제철 김치</div>
+    <h2 class="a-fadeup a-d2"><em>풋마늘대김치</em>가<br>처음이세요?</h2>
+    <div class="quote a-slideL a-d3">"마늘쪽이 영글기 전,<br>여린 줄기로 담근 봄 김치예요."</div>
+    <div class="meta">
+      <div class="row a-fadeup a-d4"><span class="k">맛</span><span class="v">자극은 덜하고, 향은 은은하게. 줄기는 아삭, 잎은 부드러워요.</span></div>
+      <div class="row a-fadeup a-d5"><span class="k">생산자</span><span class="v">(주)담채원 · 충남 태안</span></div>
+      <div class="row a-fadeup a-d6"><span class="k">가격</span><span class="v">10,500원 · 500g</span></div>
+    </div>
+    <div class="btn-row a-fadeup a-d7">
+      <a class="btn-cta btn-clay" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=59420&returnPlanNo=0" target="_blank">
+        상품 자세히 보기 <span class="btn-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 05. 두레맛찬 가정의 달 (4종) ============ -->
+<div class="slide s-mprod">
+  <div class="top">
+    <div class="pre a-fadeup">5월, 가정의 달</div>
+    <h2 class="a-fadeup a-d1">두레맛찬 3종 담으면<br><em>20% 더 할인</em></h2>
+    <div class="sub a-fadeup a-d2">어머니 손맛 그대로 — 꺼내기만 하면 한 끼.</div>
+  </div>
+  <div class="grid3 g4">
+    <div class="pcard a-pop a-d2"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58636C.jpg" alt="감자채볶음" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58636.jpg'"><span class="pct gold">20%</span></div><div class="nm">(맛찬) 감자채볶음</div><div class="pr">3종↑ 더 할인</div></div>
+    <div class="pcard a-pop a-d3"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59016C.jpg" alt="고사리나물" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59016.jpg'"><span class="pct gold">20%</span></div><div class="nm">(맛찬) 고사리나물</div><div class="pr">3종↑ 더 할인</div></div>
+    <div class="pcard a-pop a-d4"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59024C.jpg" alt="꼬막양념무침" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59024.jpg'"><span class="pct gold">20%</span></div><div class="nm">(맛찬) 꼬막양념무침</div><div class="pr">3종↑ 더 할인</div></div>
+    <div class="pcard a-pop a-d5"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58072C.jpg" alt="열무얼갈이 물김치" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58072.jpg'"><span class="pct gold">20%</span></div><div class="nm">(맛찬) 열무얼갈이 물김치</div><div class="pr">3종↑ 더 할인</div></div>
+  </div>
+  <div class="btn-row a-fadeup a-d6">
+    <a class="btn-cta btn-gold" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662" target="_blank">
+      두레맛찬 가지러 가기 <span class="btn-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- ============ 06. 햇감자 한정 ============ -->
+<div class="slide s-prod">
+  <div class="ph">
+    <img class="a-scale" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/13132C.jpg" alt="햇감자" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/13132.jpg'">
+    <span class="pct limited a-pop a-d3">한정 · 산지직송</span>
+  </div>
+  <div class="info">
+    <div class="pre a-fadeup a-d1">올해 첫 수확 · 강원도</div>
+    <h2 class="a-fadeup a-d2"><em>햇감자</em>가<br>도착했습니다</h2>
+    <div class="price-row a-fadeup a-d3">
+      <span class="price">7,200<small style="font-size:18px">원</small></span>
+      <span class="unit">1kg · 무농약</span>
+    </div>
+    <div class="btn-row a-fadeup a-d4">
+      <a class="btn-cta btn-clay" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662" target="_blank">
+        햇감자 담으러 가기 <span class="btn-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 07. 화·목·금 동물복지 25% ============ -->
+<div class="slide s-cal">
+  <div class="top">
+    <div class="pre a-fadeup">월요일에 담아두면 한 주가 든든</div>
+    <h2 class="a-fadeup a-d1">화·목·금<br><em>저녁이 든든해요</em></h2>
+    <div class="sub a-fadeup a-d2">동물복지 육가공 · 25% 한정</div>
+  </div>
+  <div class="grid">
+    <div class="row a-slideL a-d2">
+      <div class="day">화</div>
+      <div class="pic"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57240C.jpg" alt="돈가스" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57240.jpg'"></div>
+      <div class="txt"><div class="nm">통살수제 등심돈가스</div><div class="ds">−24%</div></div>
+    </div>
+    <div class="row a-slideL a-d3">
+      <div class="day">목</div>
+      <div class="pic"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57242C.jpg" alt="간장불고기" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57242.jpg'"></div>
+      <div class="txt"><div class="nm">동물복지 간장불고기</div><div class="ds">−24%</div></div>
+    </div>
+    <div class="row a-slideL a-d4">
+      <div class="day">금</div>
+      <div class="pic"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57241C.jpg" alt="고추장불고기" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57241.jpg'"></div>
+      <div class="txt"><div class="nm">동물복지 고추장불고기</div><div class="ds">−25%</div></div>
+    </div>
+  </div>
+  <div class="btn-row a-fadeup a-d5">
+    <a class="btn-cta btn-gold" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662" target="_blank">
+      한 주 식단 담으러 가기 <span class="btn-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- ============ 08. 영광굴비 ============ -->
+<div class="slide s-prod">
+  <div class="ph">
+    <img class="a-scale" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/405C.jpg" alt="영광굴비" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/405.jpg'">
+    <span class="pct a-pop a-d3">−20%</span>
+  </div>
+  <div class="info">
+    <div class="pre a-fadeup a-d1">엄마 손맛은 굴비 한 마리에서</div>
+    <h2 class="a-fadeup a-d2"><em>영광굴비</em><br>대용량 기획</h2>
+    <div class="price-row a-fadeup a-d3">
+      <span class="price">155,200<small style="font-size:18px">원</small></span>
+      <span class="unit">2kg · 20미 · 신진</span>
+    </div>
+    <div class="btn-row a-fadeup a-d4">
+      <a class="btn-cta btn-clay" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662" target="_blank">
+        영광굴비 보러 가기 <span class="btn-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 09. 유기 곡물 6종 (강황쌀 그리드 - 이미지 안전) ============ -->
+<div class="slide s-mprod">
+  <div class="top">
+    <div class="pre a-fadeup">매일의 밥, 가장 정직하게</div>
+    <h2 class="a-fadeup a-d1"><em>유기 곡물</em><br>창고 대개방</h2>
+    <div class="sub a-fadeup a-d2">유기 적미·잡곡·강황쌀까지 — 최대 25% 할인</div>
+  </div>
+  <div class="grid3 g6">
+    <div class="pcard a-pop a-d2"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45348C.jpg" alt="적미" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45348.jpg'"><span class="pct">20%</span></div><div class="nm">적미 (1kg / 유기)</div><div class="pr">6,800원</div></div>
+    <div class="pcard a-pop a-d3"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45339C.jpg" alt="혼합잡곡" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45339.jpg'"><span class="pct">20%</span></div><div class="nm">혼합잡곡 (6종)</div><div class="pr">6,100원</div></div>
+    <div class="pcard a-pop a-d4"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55821C.jpg" alt="저당 혼합10곡" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55821.jpg'"><span class="pct">20%</span></div><div class="nm">저당 혼합10곡</div><div class="pr">11,200원</div></div>
+    <div class="pcard a-pop a-d5"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55822C.jpg" alt="저당 귀리혼합곡" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55822.jpg'"><span class="pct">20%</span></div><div class="nm">저당 귀리혼합곡</div><div class="pr">11,200원</div></div>
+    <div class="pcard a-pop a-d6"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55823C.jpg" alt="저당 호라산밀" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55823.jpg'"><span class="pct">20%</span></div><div class="nm">저당 호라산밀혼합곡</div><div class="pr">11,900원</div></div>
+    <div class="pcard a-pop a-d7"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30342C.jpg" alt="유기농 초록통쌀" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30342.jpg'"><span class="pct">10%</span></div><div class="nm">유기농 초록통쌀</div><div class="pr">12,500원</div></div>
+  </div>
+  <div class="btn-row a-fadeup a-d7">
+    <a class="btn-cta btn-clay" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662" target="_blank">
+      유기 곡물 담으러 가기 <span class="btn-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- ============ 10. 제주 채소 6종 ============ -->
+<div class="slide s-mprod">
+  <div class="top">
+    <div class="pre a-fadeup">바닷바람 머금은 산지 직송</div>
+    <h2 class="a-fadeup a-d1"><em>제주</em>에서 도착한,<br>매일의 채소</h2>
+    <div class="sub a-fadeup a-d2">단단한 햇양파부터 햇감자까지 — 20% 할인</div>
+  </div>
+  <div class="grid3 g6">
+    <div class="pcard a-pop a-d2"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/19563C.jpg" alt="당근" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/19563.jpg'"><span class="pct">21%</span></div><div class="nm">당근 (1kg)</div><div class="pr">2,200원</div></div>
+    <div class="pcard a-pop a-d3"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/50542C.jpg" alt="무우" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/50542.jpg'"><span class="pct">21%</span></div><div class="nm">무우 (1kg)</div><div class="pr">2,200원</div></div>
+    <div class="pcard a-pop a-d4"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54511C.jpg" alt="햇양파" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54511.jpg'"><span class="pct">20%</span></div><div class="nm">햇양파 (800g)</div><div class="pr">2,500원</div></div>
+    <div class="pcard a-pop a-d5"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20772C.jpg" alt="양배추" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20772.jpg'"><span class="pct">20%</span></div><div class="nm">양배추 (1kg)</div><div class="pr">3,000원</div></div>
+    <div class="pcard a-pop a-d6"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51533C.jpg" alt="제주 감자" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51533.jpg'"><span class="pct">20%</span></div><div class="nm">제주 포슬 감자</div><div class="pr">3,100원</div></div>
+    <div class="pcard a-pop a-d7"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/48979C.jpg" alt="대파" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/48979.jpg'"><span class="pct">10%</span></div><div class="nm">대파 (300g)</div><div class="pr">1,700원</div></div>
+  </div>
+  <div class="btn-row a-fadeup a-d7">
+    <a class="btn-cta btn-sage" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662" target="_blank">
+      제주 채소 담으러 가기 <span class="btn-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- ============ 11. 스승의 날 건강선물 6종 ============ -->
+<div class="slide s-mprod plum-grid">
+  <div class="top">
+    <div class="pre a-fadeup">5월 15일 · 스승의 날</div>
+    <h2 class="a-fadeup a-d1">은혜는,<br><em>건강으로</em> 갚아요</h2>
+    <div class="sub a-fadeup a-d2">선생님의 한 주를 응원하는 마음 6종.</div>
+  </div>
+  <div class="grid3 g6">
+    <div class="pcard a-pop a-d2"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57269C.jpg" alt="트리플블러드케어" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57269.jpg'"><span class="pct">20%</span></div><div class="nm">트리플블러드케어</div><div class="pr">26,400원</div></div>
+    <div class="pcard a-pop a-d3"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/14035C.jpg" alt="쌍화차" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/14035.jpg'"><span class="pct">13%</span></div><div class="nm">쌍화차 (선물)</div><div class="pr">29,100원</div></div>
+    <div class="pcard a-pop a-d4"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/25776C.jpg" alt="프로폴리스" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/25776.jpg'"><span class="pct">10%</span></div><div class="nm">프로폴리스</div><div class="pr">45,000원</div></div>
+    <div class="pcard a-pop a-d5"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/26956C.jpg" alt="생강차" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/26956.jpg'"><span class="pct">10%</span></div><div class="nm">손찬락 생강차</div><div class="pr">16,000원</div></div>
+    <div class="pcard a-pop a-d6"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31515C.jpg" alt="도라지청" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31515.jpg'"><span class="pct">5%</span></div><div class="nm">도라지청 (무농약)</div><div class="pr">29,900원</div></div>
+    <div class="pcard a-pop a-d7"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55891C.jpg" alt="레몬 캔디" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55891.jpg'"><span class="pct">10%</span></div><div class="nm">제주레몬 프로폴리스 캔디</div><div class="pr">7,800원</div></div>
+  </div>
+  <div class="btn-row a-fadeup a-d7">
+    <a class="btn-cta btn-cream" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662" target="_blank">
+      선물 고르러 가기 <span class="btn-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- ============ 12. 공정무역의 날 (4종) ============ -->
+<div class="slide s-mprod dark-grid">
+  <div class="top">
+    <div class="pre a-fadeup">5월 10일 · 세계 공정무역의 날</div>
+    <h2 class="a-fadeup a-d1">함께 만드는<br><em>좋은 식탁</em></h2>
+    <div class="sub a-fadeup a-d2">PTCoop 공정무역 41종 · 마음까지 좋은 간식</div>
+  </div>
+  <div class="grid3 g4">
+    <div class="pcard a-pop a-d2"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56243C.jpg" alt="페루 마라스 가는소금" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56243.jpg'"><span class="pct">10%</span></div><div class="nm">페루 마라스 가는소금 320g</div><div class="pr">7,800원</div></div>
+    <div class="pcard a-pop a-d3"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56244C.jpg" alt="페루 마라스 중간소금" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56244.jpg'"><span class="pct">10%</span></div><div class="nm">페루 마라스 중간소금 320g</div><div class="pr">7,800원</div></div>
+    <div class="pcard a-pop a-d4"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/50994C.jpg" alt="실론 시나몬 가루" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/50994.jpg'"><span class="pct">9%</span></div><div class="nm">실론 시나몬 가루</div><div class="pr">5,500원</div></div>
+    <div class="pcard a-pop a-d5"><div class="img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59455C.jpg" alt="유기농 다크 초콜릿" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59455.jpg'"><span class="pct">5%</span></div><div class="nm">유기농 다크 초콜릿</div><div class="pr">7,600원</div></div>
+  </div>
+  <div class="btn-row a-fadeup a-d6">
+    <a class="btn-cta btn-gold" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662" target="_blank">
+      공정무역 보러 가기 <span class="btn-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- ============ 13. CTA ============ -->
+<div class="slide s-cta">
+  <div class="top">
+    <div class="pre a-fadeup">감사합니다, 조합원님</div>
+    <h2 class="a-fadeup a-d1">월요일 오전,<br><em>한 번에</em><br>담으세요</h2>
+    <div class="when-box a-fadeup a-d2">
+      <div class="lab">MONDAY MORNING</div>
+      <div class="big">5월 11일 (월) 오전</div>
+    </div>
+    <div class="gifts-recap a-fadeup a-d3">
+      <div class="g">
+        <div class="pic a-float"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54511C.jpg" alt="햇양파"></div>
+        <div class="lab">7만원↑</div>
+        <div>햇양파 증정</div>
+      </div>
+      <div class="g">
+        <div class="pic a-float" style="animation-delay:.4s"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59420C.jpg" alt="풋마늘대김치"></div>
+        <div class="lab">1+1</div>
+        <div>풋마늘대김치</div>
+      </div>
+    </div>
+  </div>
+  <div class="bot a-fadeup a-d5">
+    <a class="btn-big" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662" target="_blank">
+      지금 주문하러 가기 →<small>ECOOP.OR.KR</small>
+    </a>
+    <div class="foot">DURE COOP · 5.11~5.15</div>
+  </div>
+</div>
+
+</div><!-- /track -->
+
+<div class="nav-side">
+  <button id="prevBtn" onclick="prev()" title="위">▲</button>
+  <button id="nextBtn" onclick="next()" title="아래">▼</button>
+</div>
+
+<div class="scroll-hint" id="scrollHint">
+  <span class="arrow">▼</span>
+  아래로 넘기기
+</div>
+
+</div><!-- /frame -->
+</div><!-- /stage -->
+
+<script>
+const total = 13;
+let i = 0;
+const track = document.getElementById('track');
+const idxEl = document.getElementById('idx');
+const barFill = document.getElementById('barFill');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const bar = document.getElementById('bar');
+
+function pad(n){return n<10?'0'+n:''+n}
+function update(){
+  track.style.transform = `translateY(-${i*100}%)`;
+  idxEl.textContent = pad(i+1) + ' / ' + pad(total);
+  barFill.style.height = ((i+1)/total*100) + '%';
+  prevBtn.disabled = (i===0);
+  nextBtn.disabled = (i===total-1);
+  // toggle .active for animations
+  Array.from(track.children).forEach((s,idx)=>{
+    s.classList.toggle('active', idx===i);
+  });
+  // dark idx for paper-bg slides
+  const slide = track.children[i];
+  const isPaper = slide && (
+    slide.classList.contains('paper-bg')||slide.classList.contains('linen-bg')||
+    slide.classList.contains('gold-bg')||
+    slide.querySelector('.s-prod .info')||slide.querySelector('.s-mprod:not(.dark-grid):not(.plum-grid)')||
+    slide.querySelector('.s-explain')||slide.querySelector('.s-1plus1')
+  );
+  idxEl.classList.toggle('dark', !!isPaper);
+  bar.classList.toggle('dark', !!isPaper);
+}
+function next(){ if(i<total-1){i++;update()} }
+function prev(){ if(i>0){i--;update()} }
+
+// keyboard
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowDown'||e.key===' '||e.key==='Enter'||e.key==='PageDown'){next();e.preventDefault()}
+  if(e.key==='ArrowUp'||e.key==='PageUp'){prev();e.preventDefault()}
+});
+
+// touch swipe (vertical)
+let sx=0, sy=0, st=0;
+const frame = document.querySelector('.frame');
+frame.addEventListener('touchstart',e=>{
+  sx = e.touches[0].clientX; sy=e.touches[0].clientY; st=Date.now();
+},{passive:true});
+frame.addEventListener('touchend',e=>{
+  const t=e.target;
+  if(t.closest('a,button')) return;
+  const dx = e.changedTouches[0].clientX - sx;
+  const dy = e.changedTouches[0].clientY - sy;
+  const dt = Date.now() - st;
+  if(Math.abs(dy)>50 && Math.abs(dy)>Math.abs(dx) && dt<800){
+    if(dy<0) next(); else prev();
+  }
+},{passive:true});
+
+// wheel
+let wheelLock = false;
+frame.addEventListener('wheel',e=>{
+  if(wheelLock) return;
+  if(Math.abs(e.deltaY)<10) return;
+  wheelLock = true;
+  if(e.deltaY>0) next(); else prev();
+  setTimeout(()=>{wheelLock=false},800);
+},{passive:true});
+
+// hide scroll hint
+let interacted=false;
+['click','touchstart','keydown','wheel'].forEach(ev=>{
+  document.addEventListener(ev,()=>{
+    if(interacted) return;
+    interacted=true;
+    const h=document.getElementById('scrollHint');
+    if(h) h.style.display='none';
+  },{once:true,passive:true});
+});
+
+update();
+setTimeout(()=>{
+  const h=document.getElementById('scrollHint');
+  if(h) h.style.display='none';
+},5500);
+</script>
+
+</body>
+</html>
